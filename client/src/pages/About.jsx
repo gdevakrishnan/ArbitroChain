@@ -1,4 +1,5 @@
 import React from 'react';
+import '../static/about.css';
 
 const About = () => {
   return (

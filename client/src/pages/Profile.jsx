@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import './profile.css';
+import React, { useState, useEffect } from "react";
+import "../static/profile.css";
 
 const Profile = () => {
   const [user, setUser] = useState({
-    name: '',
-    email: '',
-    profilePicture: '',
-    bio: '',
+    name: "",
+    email: "",
+    profilePicture: "",
+    bio: "",
   });
 
   useEffect(() => {
     const mockUser = {
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      profilePicture: 'https://via.placeholder.com/150',
-      bio: 'This is a sample bio.',
+      name: "John Doe",
+      email: "johndoe@example.com",
+      profilePicture: "https://via.placeholder.com/150",
+      bio: "This is a sample bio.",
     };
     setUser(mockUser);
   }, []);

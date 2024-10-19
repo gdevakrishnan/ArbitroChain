@@ -8,6 +8,7 @@ import About from '../pages/About'
 import Dispute from '../pages/Dispute'
 import Profile from '../pages/Profile'
 import PageNotFound from '../pages/PageNotFound'
+import Dashboard from '../pages/Dashboard'
 
 function Router() {
   const { State } = useContext(appContext);

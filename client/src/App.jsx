@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { ethers } from "ethers";
 import ABI from "./contractJson/ArbitroChain.json";
-import Router from './router/Router'
-import appContext from './context/appContext'
+import Router from './router/Router';
+import appContext from './context/appContext';
 
 function App() {
   const initialState = {
@@ -18,10 +18,12 @@ function App() {
   };
 
   const [State, setState] = useState(initialState);
+  const [navState, setNavState] = useState(null); // Define navState and setNavState
+
   useEffect(() => {
     getStateParameters();
   }, []);
-  
+
   const getStateParameters = async () => {
     if (window.ethereum) {
       setState(prevState => ({
@@ -76,15 +78,15 @@ function App() {
     getStateParameters,
     navState,
     setNavState
-  }
-  
+  };
+
   return (
     <Fragment>
       <appContext.Provider value={context}>
         <Router />
       </appContext.Provider>
     </Fragment>
-  )
+  );
 }
 
-export default App
+export default App;

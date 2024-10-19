@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './dispute.css';
+import '../static/dispute.css';
 
 const Dispute = () => {
   // Assuming you have dispute details that you will fetch from your API or database

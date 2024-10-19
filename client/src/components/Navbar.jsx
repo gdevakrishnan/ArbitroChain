@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBarsStaggered } from "react-icons/fa6";
-import logo from "/logo.png";
 import { GrClose } from "react-icons/gr";
 
 function Navbar() {
@@ -13,7 +12,7 @@ function Navbar() {
       <header>
         <div className="header">
           <img
-            src={logo}
+            // src={logo}
             alt="logo"
             className="header_logo"
             onClick={() => nav("/")}
@@ -33,7 +32,9 @@ function Navbar() {
           </label>
 
           <Link to={"/"}>
-            <img src={logo} alt="gd" className="logo nav_logo" />
+            <img 
+            // src={logo} 
+            alt="gd" className="logo nav_logo" />
           </Link>
 
           <ul>
