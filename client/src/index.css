@@ -1,5 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
+:root {
+  --text: #453c38;
+  --background: #fbfbfb;
+  --primary: #896149;
+  --secondary: #c2a188;
+  --accent: #7d5446;
+  --footer: #eeeeee;
+  --footer-bg: #292929;
+}
+
+/* Color Pallate Suggestions
+1. --text: #020c09;
+--background: #f6fefc;
+--primary: #2cdaa8;
+--secondary: #80ace9;
+--accent: #617be3;
+
+
+2. --text: #02070a;
+--background: #f2f9fd;
+--primary: #2899dc;
+--secondary: #da80ea;
+--accent: #e458ac;
+
+3. --text: #06050b;
+--background: #f4f2f9;
+--primary: #6a54b2;
+--secondary: #d2ae9b;
+--accent: #c3c784;
+
+4. --text: #04190b;
+--background: #f7fef9;
+--primary: #2ede65;
+--secondary: #82d0ec;
+--accent: #5c8be6;
+*/
+
 * {
   margin: 0;
   padding: 0;
