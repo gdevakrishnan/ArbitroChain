@@ -15,3 +15,9 @@ body {
   overflow-x: hidden;
   font-family: "Ubuntu", sans-serif;
 }
+
+.page {
+  width: 100vw;
+  min-height: 100vh;
+  height: auto;
+}

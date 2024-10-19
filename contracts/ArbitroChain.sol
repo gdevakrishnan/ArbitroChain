@@ -57,6 +57,11 @@ contract ArbitroChain {
         arbitratorStakes[msg.sender] += _amount;
     }
 
+    // Function to check if an address is an arbitrator
+    function isArbitrator(address _arbitrator) external view returns (bool) {
+        return arbitratorStakes[_arbitrator] > 0;
+    }
+
     // Company A raises a dispute against Company B
     function raiseDispute(address _companyB) external {
         require(companies[msg.sender].exists, "Company A not registered");
@@ -187,4 +192,4 @@ contract ArbitroChain {
     }
 }
 
-// ArbitroChain contract address: 0x9d51861f4923e2FCf67fd5955294308Bf683bb69
+// ArbitroChain contract address: 0xD0EE8Ddf759a7b8d0ca7441DC6fDb650F698C710
