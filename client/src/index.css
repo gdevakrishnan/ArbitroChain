@@ -1,42 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
 
 :root {
-  --text: #453c38;
-  --background: #fbfbfb;
-  --primary: #896149;
-  --secondary: #c2a188;
-  --accent: #7d5446;
-  --footer: #eeeeee;
-  --footer-bg: #292929;
+  --text: #2e2e2e; /* Dark gray for better readability */
+  --background: #f5f5f5; /* Light gray for a clean look */
+  --primary: #1d72b8; /* Professional blue for primary elements */
+  --secondary: #6a89cc; /* Light blue for secondary elements */
+  --accent: #f39c12; /* Gold accent to add a touch of luxury */
+  --footer: #f0f0f0; /* Soft gray for footer area */
+  --footer-bg: #343a40; /* Dark gray for footer background */
+  --border-radius: 6px;
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --transition-speed: 0.3s;
 }
 
-/* Color Pallate Suggestions
-1. --text: #020c09;
---background: #f6fefc;
---primary: #2cdaa8;
---secondary: #80ace9;
---accent: #617be3;
-
-
-2. --text: #02070a;
---background: #f2f9fd;
---primary: #2899dc;
---secondary: #da80ea;
---accent: #e458ac;
-
-3. --text: #06050b;
---background: #f4f2f9;
---primary: #6a54b2;
---secondary: #d2ae9b;
---accent: #c3c784;
-
-4. --text: #04190b;
---background: #f7fef9;
---primary: #2ede65;
---secondary: #82d0ec;
---accent: #5c8be6;
-*/
-
+/* Global Styles */
 * {
   margin: 0;
   padding: 0;
@@ -44,6 +21,8 @@
   text-decoration: none;
   list-style-type: none;
   font-weight: 400;
+  transition: background-color var(--transition-speed),
+    color var(--transition-speed);
 }
 
 body {
@@ -51,11 +30,73 @@ body {
   height: 100vh;
   overflow-x: hidden;
   font-family: "Ubuntu", sans-serif;
+  background-color: var(--background);
+  color: var(--text);
 }
 
+/* Page Layout */
 .page {
   width: 100vw;
   min-height: 100vh;
-  height: auto;
   padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Transitions for Interactive Elements */
+button,
+a {
+  transition: background-color var(--transition-speed),
+    color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+/* Button Styling */
+button {
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  box-shadow: var(--box-shadow);
+}
+
+button:hover {
+  background-color: var(--accent);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Link Styling */
+a {
+  color: var(--primary);
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+/* Section Styling */
+.section-title {
+  font-size: 1.8rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.section-content {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* Card Styling */
+.card {
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 20px;
+  transition: box-shadow var(--transition-speed);
+}
+
+.card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
