@@ -19,13 +19,10 @@ function Home() {
 
             <div className="content">
               <h1 className="hero_title">
-                <span>Smart</span> Attendance,{" "}
+                <span>Jury-Rigg</span> {" "}
               </h1>
-              <h1 className="hero_title">Smarter Workforce</h1>
-              <p className="hero_content">
-                With our software, attendance is more than just a check-in.
-                Leverage comprehensive analytics to understand productivity
-                trends, improve scheduling, and make smarter workforce decisions
+              <h1 className="hero_title">Arbitration System</h1>
+              <p className="hero_content">Unlock a new era of dispute resolution with a token-powered system that puts fairness in your community's hands. Harness smart contracts for transparent decision-making and empower governance to drive equitable outcomes. Transform conflicts into growth with blockchain-enabled justice.
               </p>
             </div>
 
