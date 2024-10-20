@@ -1,55 +1,71 @@
-import React, { Fragment, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { FaBarsStaggered } from "react-icons/fa6";
+import React, { Fragment, useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import appContext from "../context/appContext";
 import { GrClose } from "react-icons/gr";
+import { FaBarsStaggered } from "react-icons/fa6";
+import "../static/navbar.css";
 
 function Navbar() {
-  const [menuBtn, setMenuBtn] = useState(true);
-  const nav = useNavigate();
+  const { getStateParameters, State } = useContext(appContext);
+  const { WalletAddress } = State;
+  const [menuBtn, setMenuBtn] = useState(false); // State for menu button toggle
+
+  const toggleMenu = () => {
+    setMenuBtn(!menuBtn);
+  };
 
   return (
     <Fragment>
-      <header>
-        <div className="header">
-          <img
-            // src={logo}
-            alt="logo"
-            className="header_logo"
-            onClick={() => nav("/")}
-          />
-          <p>Christ The Living Petra</p>
-        </div>
-
+      <header className="navbar">
         <nav>
+          <Link to="/" className="logo">
+            ArbitroChain
+          </Link>
           <input
             type="checkbox"
             id="check"
-            onClick={() => setMenuBtn(!menuBtn)}
+            checked={menuBtn}
+            onChange={toggleMenu}
           />
-          <label htmlFor="check" className="overlay"></label>
           <label htmlFor="check" className="checkbtn">
-            {menuBtn ? <FaBarsStaggered /> : <GrClose />}
+            {menuBtn ? (
+              <GrClose className="menu_btn" />
+            ) : (
+              <FaBarsStaggered className="menu_btn" />
+            )}
           </label>
 
-          <Link to={"/"}>
-            <img 
-            // src={logo} 
-            alt="gd" className="logo nav_logo" />
-          </Link>
-
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
+          <ul className={menuBtn ? "nav-menu active" : "nav-menu"}>
+            <li title="Dashboard">
+              <Link to={"/"}>Home</Link>
             </li>
-            <li>
-              <Link to="/events">Events</Link>
+            <li title="About">
+              <Link to={"/about"}>About</Link>
             </li>
-            <li>
-              <Link to="/about">About Us</Link>
-            </li>
-            <li>
-              <Link to="/contact">Contact Us</Link>
-            </li>
+            {WalletAddress && (
+              <li title="Dispute">
+                <Link to={"/dispute"}>Dispute</Link>
+              </li>
+            )}
+            {WalletAddress ? (
+              <li title={WalletAddress}>
+                <Link to={"/profile"}>
+                  {WalletAddress.slice(0, 5)}...{WalletAddress.slice(-6, -1)}
+                </Link>
+              </li>
+            ) : (
+              <li title="Connect Wallet">
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    getStateParameters();
+                  }}
+                  className="btn wallet_btn"
+                >
+                  Connect
+                </button>
+              </li>
+            )}
           </ul>
         </nav>
       </header>

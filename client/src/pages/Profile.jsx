@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../static/profile.css";
+import profile_pic from "../assets/profile.png";
 
 const Profile = () => {
   const [user, setUser] = useState({
     name: "",
     email: "",
-    profilePicture: "",
     bio: "",
   });
 
@@ -22,7 +22,7 @@ const Profile = () => {
   return (
     <div className="profile">
       <div className="profile-picture">
-        <img src={user.profilePicture} alt={user.name} />
+        <img src={profile_pic} alt={user.name} />
       </div>
       <div className="profile-info">
         <h1>{user.name}</h1>
