@@ -4,7 +4,7 @@ import '../static/disputeList.css';
 
 function DisputeList() {
   const { State } = useContext(appContext);
-  const { ReadContract } = State;
+  const { ReadContract, WriteContract } = State;
 
   const [disputes, setDisputes] = useState([]);
 
@@ -19,12 +19,15 @@ function DisputeList() {
     };
 
     fetchDisputes();
-  }, [ReadContract]);
+  }, [ReadContract, disputes]);
 
   const handleVote = async (disputeId, vote) => {
     try {
-      // Here you would call the smart contract function to vote
-      // For example: await WriteContract.vote(disputeId, vote);
+      const tx = await WriteContract.vote(disputeId, vote);
+      await tx.wait(); // Wait for the transaction to be mined
+
+      console.log("Voted successfully:", tx);
+
       console.log(`Voted ${vote} for dispute ID: ${disputeId}`);
     } catch (error) {
       console.error("Error voting:", error);
@@ -48,13 +51,17 @@ function DisputeList() {
                 <div className="vote_buttons">
                   <button
                     className="vote_button vote_a"
-                    onClick={() => handleVote(dispute.id, 'A')}
+                    onClick={() => {
+                      handleVote(dispute.id, 1)
+                    }}
                   >
                     Vote A
                   </button>
                   <button
                     className="vote_button vote_b"
-                    onClick={() => handleVote(dispute.id, 'B')}
+                    onClick={() => {
+                      handleVote(dispute.id, 2);
+                    }}
                   >
                     Vote B
                   </button>
