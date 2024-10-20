@@ -1,12 +1,20 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import "../static/dispute.css";
+import appContext from "../context/appContext";
 
 const Dispute = () => {
+  const { State } = useContext(appContext);
+
+  const {
+    WriteContract,
+  } = State;
+
   const [formData, setFormData] = useState({
     companyA: "",
     companyB: "",
+    companyBAddress: "",
     issueDescription: "",
-    category: "", // Added category state
+    category: "",
   });
 
   const handleChange = (e) => {
@@ -14,10 +22,29 @@ const Dispute = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form Data:", formData);
+
+    const { companyA, companyB, issueDescription, category } = formData;
+
+    try {
+      // Call the raiseDispute function in the smart contract
+      const tx = await WriteContract.raiseDispute(companyA, companyB, issueDescription, category);
+      await tx.wait(); // Wait for the transaction to be mined
+
+      console.log("Dispute raised successfully:", tx);
+      
+      // Reset the form data after submission
+      setFormData({
+        companyA: "",
+        companyB: "",
+        companyBAddress: "",
+        issueDescription: "",
+        category: "",
+      });
+    } catch (error) {
+      console.error("Error raising dispute:", error);
+    }
   };
 
   return (
@@ -46,6 +73,16 @@ const Dispute = () => {
             />
           </div>
           <div className="form_group">
+            <label htmlFor="companyBAddress">Opposition Company Address</label>
+            <input
+              type="text"
+              id="companyBAddress"
+              name="companyBAddress"
+              value={formData.companyBAddress}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form_group">
             <label htmlFor="issueDescription">Issue Description</label>
             <textarea
               id="issueDescription"
@@ -64,19 +101,11 @@ const Dispute = () => {
             >
               <option value="">Select a category</option>
               <option value="Fraud Claims">Fraud Claims</option>
-              <option value="Transaction Disagreements">
-                Transaction Disagreements
-              </option>
-              <option value="Token Ownership Issues">
-                Token Ownership Issues
-              </option>
+              <option value="Transaction Disagreements">Transaction Disagreements</option>
+              <option value="Token Ownership Issues">Token Ownership Issues</option>
               <option value="Governance Disputes">Governance Disputes</option>
-              <option value="User Conduct Violations">
-                User Conduct Violations
-              </option>
-              <option value="Protocol Violation Claims">
-                Protocol Violation Claims
-              </option>
+              <option value="User Conduct Violations">User Conduct Violations</option>
+              <option value="Protocol Violation Claims">Protocol Violation Claims</option>
             </select>
           </div>
           <div className="form_group">
