@@ -9,19 +9,29 @@ contract ArbitroChain {
 
     struct Company {
         string name;
-        bool exists;
     }
 
     struct Dispute {
-        address companyA;
-        address companyB;
-        address[] selectedArbitrators;
+        string companyAName;
+        address companyAAddress;
+        string companyBName;
+        address companyBAddress;
         string issueDescription;
         string category;
+        address[] selectedArbitrators;
         mapping(address => bool) votedArbitrators;
         mapping(address => uint8) votes; // 1 = A, 2 = B
         uint256 voteA;
         uint256 voteB;
+        bool resolved;
+    }
+
+    struct DisputeInfo {
+        uint256 id;
+        string companyAName;
+        string companyBName;
+        string issueDescription;
+        string category;
         bool resolved;
     }
 
@@ -32,27 +42,18 @@ contract ArbitroChain {
 
     event DisputeRaised(
         uint256 indexed disputeId,
+        string companyAName,
         address indexed companyA,
+        string companyBName,
         address indexed companyB,
         string issueDescription,
         string category
     );
+
     event DisputeResolved(uint256 indexed disputeId, address winner);
 
     constructor(address _grullToken) {
         grullToken = IERC20(_grullToken);
-    }
-
-    // Register a company
-    function registerCompany(string memory _name) external {
-        require(!companies[msg.sender].exists, "Company already registered");
-        companies[msg.sender] = Company(_name, true);
-    }
-
-    // Function to get the company name by address
-    function getCompanyName(address _companyAddress) external view returns (string memory) {
-        require(companies[_companyAddress].exists, "Company not registered");
-        return companies[_companyAddress].name;
     }
 
     // Arbitrator deposits tokens to be eligible for voting
@@ -66,35 +67,69 @@ contract ArbitroChain {
     }
 
     // Function to check if an address is an arbitrator
-    function isArbitrator(address _arbitrator) external view returns (bool) {
+    function isArbitrator(address _arbitrator) public view returns (bool) {
         return arbitratorStakes[_arbitrator] > 0;
     }
 
     // Company A raises a dispute against Company B
     function raiseDispute(
-        address _companyB,
+        string memory _companyAName,
+        string memory _companyBName,
         string memory _issueDescription,
         string memory _category
     ) external {
-        require(companies[msg.sender].exists, "Company A not registered");
-        require(companies[_companyB].exists, "Company B not registered");
+        // require(isArbitrator(msg.sender), "Caller is not an arbitrator");
 
+        address _companyB = msg.sender; // The address of Company B is passed as a parameter
         address[] memory selectedArbitrators = selectArbitrators();
+
         Dispute storage newDispute = disputes.push();
-        newDispute.companyA = msg.sender;
-        newDispute.companyB = _companyB;
+        newDispute.companyAName = _companyAName;
+        newDispute.companyAAddress = msg.sender;
+        newDispute.companyBName = _companyBName;
+        newDispute.companyBAddress = _companyB;
         newDispute.issueDescription = _issueDescription;
         newDispute.category = _category;
         newDispute.selectedArbitrators = selectedArbitrators;
 
-        emit DisputeRaised(disputes.length - 1, msg.sender, _companyB, _issueDescription, _category);
+        emit DisputeRaised(
+            disputes.length - 1,
+            _companyAName,
+            msg.sender,
+            _companyBName,
+            _companyB,
+            _issueDescription,
+            _category
+        );
+    }
+
+    // Function to get all disputes
+    function getAllDisputes() external view returns (DisputeInfo[] memory) {
+        DisputeInfo[] memory disputeInfos = new DisputeInfo[](disputes.length);
+
+        for (uint256 i = 0; i < disputes.length; i++) {
+            Dispute storage dispute = disputes[i];
+            disputeInfos[i] = DisputeInfo({
+                id: i,
+                companyAName: dispute.companyAName,
+                companyBName: dispute.companyBName,
+                issueDescription: dispute.issueDescription,
+                category: dispute.category,
+                resolved: dispute.resolved
+            });
+        }
+
+        return disputeInfos;
     }
 
     // Arbitrators vote for a company (1 for A, 2 for B)
     function vote(uint256 _disputeId, uint8 _vote) external {
         Dispute storage dispute = disputes[_disputeId];
         require(!dispute.votedArbitrators[msg.sender], "Already voted");
-        require(isArbitratorSelected(_disputeId, msg.sender), "Not a selected arbitrator");
+        require(
+            isArbitratorSelected(_disputeId, msg.sender),
+            "Not a selected arbitrator"
+        );
         require(_vote == 1 || _vote == 2, "Invalid vote");
 
         dispute.votedArbitrators[msg.sender] = true;
@@ -117,8 +152,12 @@ contract ArbitroChain {
         Dispute storage dispute = disputes[_disputeId];
         require(!dispute.resolved, "Dispute already resolved");
 
-        address winner = dispute.voteA > dispute.voteB ? dispute.companyA : dispute.companyB;
-        uint256 losingVotes = dispute.voteA > dispute.voteB ? dispute.voteB : dispute.voteA;
+        address winner = dispute.voteA > dispute.voteB
+            ? dispute.companyAAddress
+            : dispute.companyBAddress;
+        uint256 losingVotes = dispute.voteA > dispute.voteB
+            ? dispute.voteB
+            : dispute.voteA;
 
         distributeStakes(_disputeId, winner, losingVotes);
         dispute.resolved = true;
@@ -127,14 +166,21 @@ contract ArbitroChain {
     }
 
     // Distribute stakes using logarithmic redistribution for fairer results
-    function distributeStakes(uint256 _disputeId, address _winner, uint256 _losingVotes) internal {
+    function distributeStakes(
+        uint256 _disputeId,
+        address _winner,
+        uint256 _losingVotes
+    ) internal {
         Dispute storage dispute = disputes[_disputeId];
         uint256 totalLosingStake = 0;
 
         // Calculate total stake of losing voters
         for (uint256 i = 0; i < MAX_ARBITRATORS; i++) {
             address arbitrator = dispute.selectedArbitrators[i];
-            if (dispute.votes[arbitrator] == (_winner == dispute.companyA ? 2 : 1)) {
+            if (
+                dispute.votes[arbitrator] ==
+                (_winner == dispute.companyAAddress ? 2 : 1)
+            ) {
                 totalLosingStake += arbitratorStakes[arbitrator];
             }
         }
@@ -142,7 +188,10 @@ contract ArbitroChain {
         // Redistribute stakes among winning voters
         for (uint256 i = 0; i < MAX_ARBITRATORS; i++) {
             address arbitrator = dispute.selectedArbitrators[i];
-            if (dispute.votes[arbitrator] == (_winner == dispute.companyA ? 1 : 2)) {
+            if (
+                dispute.votes[arbitrator] ==
+                (_winner == dispute.companyAAddress ? 1 : 2)
+            ) {
                 uint256 reward = totalLosingStake / _losingVotes;
                 grullToken.transfer(arbitrator, reward);
             }
@@ -154,7 +203,7 @@ contract ArbitroChain {
         address[] memory arbitrators = new address[](MAX_ARBITRATORS);
         uint256 totalStake = 0;
 
-        // Calculate total stake of all arbitrators.
+        // Calculate total stake of all arbitrators
         for (uint256 i = 0; i < allArbitrators.length; i++) {
             totalStake += arbitratorStakes[allArbitrators[i]];
         }
@@ -163,9 +212,13 @@ contract ArbitroChain {
 
         bool[] memory selected = new bool[](allArbitrators.length);
 
-        // Select arbitrators using roulette wheel selection.
+        // Select arbitrators using roulette wheel selection
         for (uint8 j = 0; j < MAX_ARBITRATORS; j++) {
-            uint256 randomValue = uint256(keccak256(abi.encodePacked(block.timestamp, block.prevrandao, j))) % totalStake;
+            uint256 randomValue = uint256(
+                keccak256(
+                    abi.encodePacked(block.timestamp, block.prevrandao, j)
+                )
+            ) % totalStake;
             uint256 cumulativeStake = 0;
 
             for (uint256 i = 0; i < allArbitrators.length; i++) {
@@ -185,7 +238,10 @@ contract ArbitroChain {
     }
 
     // Helper function to check if an address is selected as an arbitrator for a dispute
-    function isArbitratorSelected(uint256 _disputeId, address _arbitrator) internal view returns (bool) {
+    function isArbitratorSelected(
+        uint256 _disputeId,
+        address _arbitrator
+    ) internal view returns (bool) {
         Dispute storage dispute = disputes[_disputeId];
         for (uint256 i = 0; i < MAX_ARBITRATORS; i++) {
             if (dispute.selectedArbitrators[i] == _arbitrator) {
@@ -196,7 +252,9 @@ contract ArbitroChain {
     }
 
     // Get the stake held by an arbitrator
-    function getArbitratorStake(address _arbitrator) external view returns (uint256) {
+    function getArbitratorStake(
+        address _arbitrator
+    ) external view returns (uint256) {
         return arbitratorStakes[_arbitrator];
     }
 
@@ -206,4 +264,4 @@ contract ArbitroChain {
     }
 }
 
-// Contract deploy address: 0x059DC6a18f8E8f95dB93478Ef7A145a5a330F208
+// Deployed contract address: 0x0532A7259F2c82F0FFBb0AA9b19302B26c4B0c07
