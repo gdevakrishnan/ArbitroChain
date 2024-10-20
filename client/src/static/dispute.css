@@ -8,67 +8,128 @@
   --accent: #7d5446;
   --footer: #eeeeee;
   --footer-bg: #292929;
+  --form-border: #ddd;
+  --form-focus: #896149;
+  --button-bg: linear-gradient(135deg, #896149, #c2a188);
+  --button-hover-bg: linear-gradient(135deg, #7d5446, #896149);
 }
 
+/* Add form page styling */
 .form_page {
   max-width: 600px;
   margin: 40px auto;
-  padding: 20px;
+  padding: 30px;
   background-color: var(--background);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.8s ease-out;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Form header */
 .form_page h2 {
-  font-size: 2rem;
+  font-size: 2.2rem;
   margin-bottom: 20px;
-  color: var(--text);
+  color: var(--primary);
   text-align: center;
+  border-bottom: 2px solid var(--secondary);
+  padding-bottom: 10px;
 }
 
+/* Form group styling */
 .form_group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  position: relative;
 }
 
 .form_group label {
   display: block;
   margin-bottom: 5px;
   color: var(--text);
+  font-weight: 600;
 }
 
-.form_group textarea {
-  height: 100px;
-}
-
+/* Input fields styling */
 .form_group input,
 .form_group textarea,
 .form_group select {
-  border: none;
-  outline: none;
-  border: 1px solid #d4d4d4;
+  border: 1px solid var(--form-border);
   width: 100%;
-  padding: 10px;
-  border-radius: 4px;
-  box-sizing: border-box;
+  padding: 12px 15px;
+  border-radius: 8px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background: #fff;
 }
 
+/* Focus effect */
+.form_group input:focus,
+.form_group textarea:focus,
+.form_group select:focus {
+  border-color: var(--form-focus);
+  box-shadow: 0 0 8px rgba(137, 97, 73, 0.5);
+}
+
+/* Button styling */
 .form_group button {
   display: block;
   width: 100%;
-  padding: 10px;
-  background-color: #007bff;
+  padding: 12px;
+  background: rgb(29, 123, 255);
   color: #fff;
   border: none;
-  border-radius: 4px;
-  font-size: 1rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background 0.4s, transform 0.3s;
 }
 
+/* Button hover and active effects */
 .form_group button:hover {
-  background-color: var(--accent);
+  background: var(--button-hover-bg);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.dispute_list {
-  background-color: var(--background);
-  padding: 20px;
+/* Adding a subtle animation on button click */
+.form_group button:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+/* Textarea styling */
+.form_group textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+/* Animation on form submission success */
+.success-message {
+  color: var(--primary);
+  background: rgba(137, 97, 73, 0.1);
+  padding: 15px;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  text-align: center;
+  animation: popIn 0.5s ease-out;
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
