@@ -1,6 +1,7 @@
 import React, { Fragment, useContext, useState } from "react";
 import "../static/dispute.css";
 import appContext from "../context/appContext";
+import DisputeList from '../components/DisputeList';
 
 const Dispute = () => {
   const { State } = useContext(appContext);
@@ -113,9 +114,7 @@ const Dispute = () => {
           </div>
         </form>
       </section>
-      <section className="page dispute_list">
-        <h1>List of disputes</h1>
-      </section>
+      <DisputeList />
     </Fragment>
   );
 };

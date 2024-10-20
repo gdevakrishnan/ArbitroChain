@@ -1,0 +1,71 @@
+.dispute_list_page {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    width: 600px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 0px auto;
+}
+
+.dispute_list_page h1 {
+    text-align: center;
+}
+
+.dispute_list {
+    width: 600px;
+    margin: 20px auto;
+}
+
+.dispute_card {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 0px auto 15px;
+    transition: box-shadow 0.2s;
+}
+
+.dispute_card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dispute_card h3 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.dispute_card p {
+    margin: 5px 0;
+}
+
+.vote_buttons {
+    margin-top: 10px;
+}
+
+.vote_button {
+    padding: 8px 25px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.vote_a {
+    background-color: green;
+    color: white;
+}
+
+.vote_a:hover {
+    background-color: darkgreen;
+}
+
+.vote_b {
+    background-color: red;
+    color: white;
+}
+
+.vote_b:hover {
+    background-color: darkred;
+}

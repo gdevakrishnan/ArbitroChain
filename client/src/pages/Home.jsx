@@ -1,12 +1,73 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import img1 from "../assets/icons/dashboard/img1.png";
 import img2 from "../assets/icons/dashboard/img2.png";
 import img3 from "../assets/icons/dashboard/img3.png";
 import img4 from "../assets/icons/dashboard/img4.png";
 import { Link } from "react-router-dom";
 import "../static/home.css";
+import appContext from "../context/appContext";
+import { ethers } from "ethers";
 
 function Home() {
+  const { 
+    State,
+    setState,
+  } = useContext(appContext);
+  const { WalletAddress } = State;
+
+  const getStateParameters = async () => {
+    if (window.ethereum) {
+      setState(prevState => ({
+        ...prevState,
+        WindowEthereum: true
+      }));
+
+      const Provider = new ethers.providers.Web3Provider(window.ethereum);
+      await Provider.send("eth_requestAccounts", []);
+      const Signer = await Provider.getSigner();
+      const WalletAddress = await Signer.getAddress();
+
+      setState(prevState => ({
+        ...prevState,
+        WalletAddress,
+        Provider,
+        Signer
+      }));
+
+      const ReadContract = new ethers.Contract(
+        State.ContractAddress,
+        State.ContractAbi,
+        Provider
+      );
+      const WriteContract = new ethers.Contract(
+        State.ContractAddress,
+        State.ContractAbi,
+        Signer
+      );
+
+      const GrullReadContract = new ethers.Contract(
+        State.GrullContractAddress,
+        State.GrullContractAbi,
+        Provider
+      );
+      const GrullWriteContract = new ethers.Contract(
+        State.GrullContractAddress,
+        State.GrullContractAbi,
+        Signer
+      );
+
+      setState(prevState => ({
+        ...prevState,
+        ReadContract,
+        WriteContract,
+        GrullReadContract,
+        GrullWriteContract
+      }));
+    } else {
+      console.log("Metamask Not Found");
+    }
+  };
+
   return (
     <Fragment>
       <section className="page hero_page">
@@ -27,9 +88,17 @@ function Home() {
             </div>
 
             <div className="button">
-              <Link to={"/login"}>
-                <button className="btn">Continue Login</button>
-              </Link>
+              {
+                (WalletAddress) ? (
+                  <Link to={"/dispute"}>
+                    <button className="btn">Get Started</button>
+                  </Link>
+                ) : (
+                  <Link to={"/"}>
+                    <button className="btn" onClick={() => getStateParameters()}>Connect Wallet</button>
+                  </Link>
+                )
+              }
             </div>
           </div>
         </div>

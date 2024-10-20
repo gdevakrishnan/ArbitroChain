@@ -22,7 +22,6 @@ function App() {
   };
 
   const [State, setState] = useState(initialState);
-  const [navState, setNavState] = useState(null); // Define navState and setNavState
 
   useEffect(() => {
     getStateParameters();
@@ -85,8 +84,6 @@ function App() {
     State,
     setState,
     getStateParameters,
-    navState,
-    setNavState
   };
 
   return (
