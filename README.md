@@ -70,7 +70,7 @@ Ensure you have the following installed:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/hack-the-block.git
+   git clone https://github.com/gdevakrishnan/hack-the-block.git
    cd hack-the-block
 npm install
 npx hardhat run scripts/deploy.js --network sepolia
