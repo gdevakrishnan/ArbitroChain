@@ -4,71 +4,125 @@
   --primary: #896149;
   --secondary: #c2a188;
   --accent: #7d5446;
-  --footer: #eeeeee;
-  --footer-bg: #292929;
+  --border-radius: 12px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --border-color: #1d72b8;
+  --transition-duration: 0.4s;
+  --hover-scale: 1.02;
+  --card-padding: 25px; /* Increased padding for card content */
+  --card-margin: 20px; /* Added margin between cards */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .about-container {
-  max-width: 800px;
+  max-width: 1100px;
   margin: 40px auto;
-  padding: 20px;
+  padding: 40px;
   background-color: var(--background);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--border-color);
+  animation: fadeIn 0.8s ease-out;
+  transition: transform var(--transition-duration) ease,
+    box-shadow var(--transition-duration) ease;
+}
+
+.about-container:hover {
+  transform: scale(var(--hover-scale));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .about-container h1 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-  color: var(--text);
+  font-size: 2.4rem;
+  margin-bottom: 15px;
+  color: var(--primary);
+  border-bottom: 2px solid var(--secondary);
+  padding-bottom: 5px;
 }
 
 .about-container p {
-  font-size: 1.125rem;
-  margin-bottom: 20px;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  line-height: 1.7;
   color: var(--text);
 }
 
-.about-container h2 {
-  font-size: 1.5rem;
+.section-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--card-margin); /* Adjusted gap between cards */
+  margin-top: 20px;
+  
+}
+
+.card {
+  background-color: #c9f9ff;
+  border: 1px solid var(--secondary);
+  border-radius: var(--border-radius);
+  padding: var(--card-padding);
+  margin: var(--card-margin) 0; /* Added top-bottom margin to separate cards vertically */
+  box-shadow: var(--box-shadow);
+  transition: transform var(--transition-duration) ease,
+  box-shadow var(--transition-duration) ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card h2 {
+  font-size: 1.6rem;
+  color: rgb(255, 106, 0);
   margin-bottom: 10px;
-  color: var(--text);
+  
 }
 
-.about-container ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.about-container li {
-  margin-bottom: 10px;
+.card p {
+  font-size: 1rem;
   color: var(--text);
+  text-align: justify;
+  
 }
 
 .team-members {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Set to 4 equal columns */
+  gap: var(--card-margin); /* Uniform spacing for the team section */
 }
 
 .team-member {
-  flex: 1 1 calc(33.33% - 20px);
-  margin: 10px;
-  padding: 20px;
   background-color: #fff;
   border: 1px solid var(--secondary);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+  border-radius: var(--border-radius);
+  padding: 20px;
+  box-shadow: var(--box-shadow);
+  transition: transform var(--transition-duration) ease,
+    box-shadow var(--transition-duration) ease;
+  /* Set a fixed height for team member cards to ensure consistency */
+  height: 250px; /* Adjust as needed */
 }
 
 .team-member h3 {
-  font-size: 1.25rem;
-  margin-bottom: 10px;
-  color: var(--accent);
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+  color: rgb(255, 106, 0);
 }
 
 .team-member p {
   font-size: 1rem;
-  margin-bottom: 10px;
   color: var(--text);
 }
