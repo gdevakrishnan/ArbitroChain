@@ -20,4 +20,4 @@ contract GrullToken is ERC20 {
 }
 
 
-// Grull Token Address: 0x22C4B11b1F5860DB0FAe0200c707b763f84fD4F4
+// Grull Token Address: 0xE890f155432a67C6DE6db70fa2560fEd0a26934a

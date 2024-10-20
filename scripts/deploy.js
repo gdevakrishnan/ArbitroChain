@@ -1,5 +1,5 @@
 async function main() {
-  const grullTokenAddress = "0x22C4B11b1F5860DB0FAe0200c707b763f84fD4F4";
+  const grullTokenAddress = "0xE890f155432a67C6DE6db70fa2560fEd0a26934a";
 
   const ArbitroChain = await ethers.getContractFactory("ArbitroChain");
   const arbitrChain = await ArbitroChain.deploy(grullTokenAddress);

@@ -16,6 +16,8 @@ contract ArbitroChain {
         address companyA;
         address companyB;
         address[] selectedArbitrators;
+        string issueDescription;
+        string category;
         mapping(address => bool) votedArbitrators;
         mapping(address => uint8) votes; // 1 = A, 2 = B
         uint256 voteA;
@@ -28,7 +30,13 @@ contract ArbitroChain {
     address[] public allArbitrators;
     Dispute[] public disputes;
 
-    event DisputeRaised(uint256 indexed disputeId, address indexed companyA, address indexed companyB);
+    event DisputeRaised(
+        uint256 indexed disputeId,
+        address indexed companyA,
+        address indexed companyB,
+        string issueDescription,
+        string category
+    );
     event DisputeResolved(uint256 indexed disputeId, address winner);
 
     constructor(address _grullToken) {
@@ -63,7 +71,11 @@ contract ArbitroChain {
     }
 
     // Company A raises a dispute against Company B
-    function raiseDispute(address _companyB) external {
+    function raiseDispute(
+        address _companyB,
+        string memory _issueDescription,
+        string memory _category
+    ) external {
         require(companies[msg.sender].exists, "Company A not registered");
         require(companies[_companyB].exists, "Company B not registered");
 
@@ -71,9 +83,11 @@ contract ArbitroChain {
         Dispute storage newDispute = disputes.push();
         newDispute.companyA = msg.sender;
         newDispute.companyB = _companyB;
+        newDispute.issueDescription = _issueDescription;
+        newDispute.category = _category;
         newDispute.selectedArbitrators = selectedArbitrators;
 
-        emit DisputeRaised(disputes.length - 1, msg.sender, _companyB);
+        emit DisputeRaised(disputes.length - 1, msg.sender, _companyB, _issueDescription, _category);
     }
 
     // Arbitrators vote for a company (1 for A, 2 for B)
@@ -192,4 +206,4 @@ contract ArbitroChain {
     }
 }
 
-// ArbitroChain contract address: 0xD0EE8Ddf759a7b8d0ca7441DC6fDb650F698C710
+// Contract deploy address: 0x059DC6a18f8E8f95dB93478Ef7A145a5a330F208
