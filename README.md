@@ -1,6 +1,6 @@
 # 🏛️ Hack the Block: Decentralized Arbitration System 🏛️
 
-# Presentation (PPT): (Click Here)[https://docs.google.com/presentation/d/1yc0SMfXb_5eCUw8_SCIiRYlKzYT2zF6RwpZFvS57LFM/edit?usp=sharing] 
+# Presentation (PPT): [Click Here](https://docs.google.com/presentation/d/1yc0SMfXb_5eCUw8_SCIiRYlKzYT2zF6RwpZFvS57LFM/edit?usp=sharing) 
 
 Welcome to **Hack the Block**! Where justice meets decentralization through a transparent, fair, and attack-resistant arbitration system powered by blockchain technology.
 
