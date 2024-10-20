@@ -74,18 +74,6 @@ Ensure you have the following installed:
    ```bash
    git clone https://github.com/gdevakrishnan/hack-the-block.git
    cd hack-the-block
-npm install
-npx hardhat run scripts/deploy.js --network sepolia
-npm start
-📝 Contributing
-We welcome contributions! Please follow these steps to contribute:
-
-Fork the repository.
-Create your feature branch (git checkout -b feature/YourFeature).
-Commit your changes (git commit -m 'Add some feature').
-Push to the branch (git push origin feature/YourFeature).
-Open a pull request.
-Please read our CONTRIBUTING.md for detailed guidelines on how to get involved.
-
-📄 License
-This project is licensed under the MIT License. See the LICENSE file for details.
+   npm install
+   npx hardhat run scripts/deploy.js --network sepolia
+   npm start
