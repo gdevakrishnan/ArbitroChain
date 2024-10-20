@@ -1,37 +1,74 @@
-.dispute {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    max-width: 600px;
-    margin: auto;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .dispute h1 {
-    font-size: 28px;
-    margin-bottom: 15px;
-  }
-  
-  .dispute p {
-    font-size: 16px;
-    margin: 5px 0;
-  }
-  
-  .dispute button {
-    background-color: #4CAF50;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-  }
-  
-  .dispute button:hover {
-    background-color: #3e8e41;
-  }
+/* dispute.css */
+
+:root {
+  --text: #453c38;
+  --background: #fbfbfb;
+  --primary: #896149;
+  --secondary: #c2a188;
+  --accent: #7d5446;
+  --footer: #eeeeee;
+  --footer-bg: #292929;
+}
+
+.form_page {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: var(--background);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form_page h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: var(--text);
+  text-align: center;
+}
+
+.form_group {
+  margin-bottom: 15px;
+}
+
+.form_group label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--text);
+}
+
+.form_group textarea {
+  height: 100px;
+}
+
+.form_group input,
+.form_group textarea,
+.form_group select {
+  border: none;
+  outline: none;
+  border: 1px solid #d4d4d4;
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form_group button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.form_group button:hover {
+  background-color: var(--accent);
+}
+
+.dispute_list {
+  background-color: var(--background);
+  padding: 20px;
+}

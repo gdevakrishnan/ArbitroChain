@@ -1,59 +1,74 @@
+:root {
+  --text: #453c38;
+  --background: #fbfbfb;
+  --primary: #896149;
+  --secondary: #c2a188;
+  --accent: #7d5446;
+  --footer: #eeeeee;
+  --footer-bg: #292929;
+}
+
 .about-container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .about-container h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-  }
-  
-  .about-container p {
-    font-size: 1.125rem;
-    margin-bottom: 20px;
-  }
-  
-  .about-container h2 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
-  
-  .about-container ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .about-container li {
-    margin-bottom: 10px;
-  }
-  
-  .team-members {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
-  .team-member {
-    flex: 1 1 calc(33.33% - 20px);
-    margin: 10px;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-  }
-  
-  .team-member h3 {
-    font-size: 1.25rem;
-    margin-bottom: 10px;
-  }
-  
-  .team-member p {
-    font-size: 1rem;
-    margin-bottom: 10px;
-  }
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: var(--background);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-container h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.about-container p {
+  font-size: 1.125rem;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+
+.about-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.about-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.about-container li {
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.team-members {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.team-member {
+  flex: 1 1 calc(33.33% - 20px);
+  margin: 10px;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid var(--secondary);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.team-member h3 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+  color: var(--accent);
+}
+
+.team-member p {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: var(--text);
+}
