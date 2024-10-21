@@ -17,6 +17,7 @@ In a decentralized world, trustless mechanisms are essential for resolving dispu
 ![About Page](./README-images/about.png)
 
 ### Disputes
+Raise disputes among companies to request help of an Arbitrator
 ![Dispute Page](./README-images/disputes.png)
 
 ### Dispute List
@@ -26,6 +27,7 @@ In a decentralized world, trustless mechanisms are essential for resolving dispu
 ![Profile Page](./README-images/profile.png)
 
 ### Buy Stake
+Buying Grull Token (GT) using Metamask
 ![Buy Stake](./README-images/buy-token1.png)
 ![Buy Stake](./README-images/buy-token2.png)
 
