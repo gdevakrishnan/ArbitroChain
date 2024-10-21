@@ -1,12 +1,33 @@
 # 🏛️ Hack the Block: Decentralized Arbitration System 🏛️
 
-# Presentation (PPT): [Click Here](https://docs.google.com/presentation/d/1yc0SMfXb_5eCUw8_SCIiRYlKzYT2zF6RwpZFvS57LFM/edit?usp=sharing) 
-
 Welcome to **Hack the Block**! Where justice meets decentralization through a transparent, fair, and attack-resistant arbitration system powered by blockchain technology.
 
 ## 🚀 Overview
 
 In a decentralized world, trustless mechanisms are essential for resolving disputes. **Hack the Block** addresses key challenges in dispute resolution, such as token accumulation, monopoly prevention, and Sybil attack resistance. Our token-based staking mechanism puts jurors' reputations on the line, ensuring that justice is served.
+
+## Presentation (PPT): 
+[Click Here](https://docs.google.com/presentation/d/1yc0SMfXb_5eCUw8_SCIiRYlKzYT2zF6RwpZFvS57LFM/edit?usp=sharing) 
+
+## ArbitroChain product:
+### Home
+![Home Page](./README-images/home.png)
+
+### About
+![About Page](./README-images/about.png)
+
+### Disputes
+![Dispute Page](./README-images/disputes.png)
+
+### Dispute List
+![Dispute-List Page](./README-images/dispute-list.png)
+
+### Profile
+![Profile Page](./README-images/profile.png)
+
+### Buy Stake
+![Buy Stake](./README-images/buy-token1.png)
+![Buy Stake](./README-images/buy-token2.png)
 
 ## 🧩 Key Features
 
