@@ -50,9 +50,17 @@ const About = () => {
 
         <h2>Our Team</h2>
         <div className="team-members">
+        <div className="team-member">
+            <h3>Abhinesh P R</h3>
+            <p>Team Lead and Android Developer
+            </p>
+            <p>
+            Aspiring innovator exploring Android development for impactful and sustainable solutions.
+            </p>
+          </div>
           <div className="team-member">
             <h3>Parvathy Nathan K</h3>
-            <p>Team Lead and RPA Developer</p>
+            <p>RPA Developer</p>
             <p>
             Aspiring innovator exploring RPA's potential for sustainable and efficient solutions.
             </p>
@@ -62,14 +70,6 @@ const About = () => {
             <p>Full Stack Developer, BlockChain Developer</p>
             <p>
             Aspiring innovator exploring BlockChain development for impactful and sustainable solutions.
-            </p>
-          </div>
-          <div className="team-member">
-            <h3>Kabilan R V</h3>
-            <p>Android Developer, IoT Developer
-            </p>
-            <p>
-            Aspiring innovator exploring IoT and blockchain for a sustainable future.
             </p>
           </div>
           {/* New Team Member */}
