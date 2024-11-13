@@ -8,7 +8,7 @@ import appContext from './context/appContext';
 function App() {
   const initialState = {
     WindowEthereum: false,
-    ContractAddress: "0x0532A7259F2c82F0FFBb0AA9b19302B26c4B0c07",
+    ContractAddress: "0x19F7AC13643722ee076763Ad5aD740529E4b7B37",
     GrullContractAddress: "0xE890f155432a67C6DE6db70fa2560fEd0a26934a",
     WalletAddress: null,
     ContractAbi: ABI.abi,

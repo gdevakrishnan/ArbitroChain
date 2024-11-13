@@ -23,16 +23,21 @@ function DisputeList() {
 
   const handleVote = async (disputeId, vote) => {
     try {
-      const tx = await WriteContract.vote(disputeId, vote);
-      await tx.wait(); // Wait for the transaction to be mined
+        console.log(disputeId, vote);
+        const tx = await WriteContract.vote(disputeId, vote);
+        await tx.wait(); // Wait for the transaction to be mined
 
-      console.log("Voted successfully:", tx);
-
-      console.log(`Voted ${vote} for dispute ID: ${disputeId}`);
-    } catch (error) {
-      console.error("Error voting:", error);
+        console.log("Voted successfully:", tx);
+        console.log(`Voted ${vote} for dispute ID: ${disputeId}`);
+    } catch (e) {
+        if (e.message.includes("Already voted")) {
+            alert("You already voted for this dispute");
+        } else {
+            console.error("Error voting:", e.message);
+        }
     }
-  };
+};
+
 
   return (
     <div>

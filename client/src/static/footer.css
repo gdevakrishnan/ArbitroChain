@@ -6,7 +6,7 @@
     cursor: default;
   }
   
-  .footer .footer_main {
+  /* .footer .footer_main {
     display: flex;
     margin-left: 10px;
     width: 100%;
@@ -35,13 +35,17 @@
   .footer .footer_main .social_links .links {
     display: flex;
     gap: 20px;
-  }
+  } */
   
   
   .footer .footer_rights {
     width: 100%;
     text-align: center;
-    padding: 10px 0px;
+    padding: 2rem 0px;
+  }
+
+  .footer .footer_rights p {
+    color: #fcfcfc;
   }
   
   @media screen and (max-width: 972px) {
