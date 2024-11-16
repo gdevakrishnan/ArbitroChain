@@ -4,7 +4,7 @@ import appContext from "../context/appContext";
 import DisputeList from '../components/DisputeList';
 
 const Dispute = () => {
-  const { State } = useContext(appContext);
+  const { State, setMsg, setErrorMsg } = useContext(appContext);
 
   const {
     WriteContract,
@@ -26,15 +26,23 @@ const Dispute = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { companyA, companyB, issueDescription, category } = formData;
+    const { companyA, companyB, companyBAddress, issueDescription, category } = formData;
 
     try {
+      const fields = [companyA, companyB, companyBAddress, issueDescription, category];
+
+      if (fields.some(field => field.trim() === "")) {
+        setErrorMsg("Enter all the fields");
+        return;
+      }
+
       // Call the raiseDispute function in the smart contract
       const tx = await WriteContract.raiseDispute(companyA, companyB, issueDescription, category);
       await tx.wait(); // Wait for the transaction to be mined
 
       console.log("Dispute raised successfully:", tx);
-      
+      setMsg("Dispute Raised Successfully");
+
       // Reset the form data after submission
       setFormData({
         companyA: "",

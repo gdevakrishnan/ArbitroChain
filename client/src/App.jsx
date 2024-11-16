@@ -4,11 +4,13 @@ import ABI from "./contractJson/ArbitroChain.json";
 import GrullABI from "./contractJson/GrullToken.json";
 import Router from './router/Router';
 import appContext from './context/appContext';
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const initialState = {
     WindowEthereum: false,
-    ContractAddress: "0x19F7AC13643722ee076763Ad5aD740529E4b7B37",
+    ContractAddress: "0x9EE22d9DEB6544858FcFb28B20C6302197CF04e7",
     GrullContractAddress: "0xE890f155432a67C6DE6db70fa2560fEd0a26934a",
     WalletAddress: null,
     ContractAbi: ABI.abi,
@@ -22,6 +24,8 @@ function App() {
   };
 
   const [State, setState] = useState(initialState);
+  const [msg, setMsg] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
     getStateParameters();
@@ -76,7 +80,7 @@ function App() {
         GrullWriteContract
       }));
     } else {
-      console.log("Metamask Not Found");
+      setErrorMsg("Metamask Not Found");
     }
   };
 
@@ -84,10 +88,23 @@ function App() {
     State,
     setState,
     getStateParameters,
+    setMsg,
+    setErrorMsg
   };
+
+  useEffect(() => {
+    msg && toast.success(msg, { autoClose: 4000 });
+    setMsg(null); // Reset msg after showing toast
+  }, [msg]);
+ 
+  useEffect(() => {
+    errorMsg && toast.error(errorMsg, { autoClose: 4000 });
+    setErrorMsg(null); // Reset errorMsg after showing toast
+  }, [errorMsg]);
 
   return (
     <Fragment>
+      <ToastContainer />
       <appContext.Provider value={context}>
         <Router />
       </appContext.Provider>

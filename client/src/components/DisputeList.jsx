@@ -3,7 +3,7 @@ import appContext from '../context/appContext';
 import '../static/disputeList.css';
 
 function DisputeList() {
-  const { State } = useContext(appContext);
+  const { State, setMsg, setErrorMsg } = useContext(appContext);
   const { ReadContract, WriteContract } = State;
 
   const [disputes, setDisputes] = useState([]);
@@ -28,10 +28,11 @@ function DisputeList() {
         await tx.wait(); // Wait for the transaction to be mined
 
         console.log("Voted successfully:", tx);
+        setMsg('Voted Successfully');
         console.log(`Voted ${vote} for dispute ID: ${disputeId}`);
     } catch (e) {
         if (e.message.includes("Already voted")) {
-            alert("You already voted for this dispute");
+          setErrorMsg("You already voted for this dispute");
         } else {
             console.error("Error voting:", e.message);
         }
